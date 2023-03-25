@@ -12,7 +12,7 @@ class SuperheroeController extends Controller
      */
     public function index()
     {
-        $datos['superheroes']=Superheroe::paginate(5);
+        $datos['superheroes']=Superheroe::paginate(50);
         return view('superheroe.index',$datos);
     }
 
@@ -34,7 +34,7 @@ class SuperheroeController extends Controller
             $datosSuperheroe['imagen']=$request->file('imagen')->store('uploads','public');
         }
         Superheroe::insert($datosSuperheroe);
-        $datos['superheroes']=Superheroe::paginate(10);
+        $datos['superheroes']=Superheroe::paginate(50);
         return view('superheroe.index',$datos);
     }
 
@@ -51,7 +51,7 @@ class SuperheroeController extends Controller
      */
     public function edit(Superheroe $superheroe)
     {
-        $superheroe=Superheroe::findOrFail($id);
+        // $superheroe=Superheroe::findOrFail($id);
         return view('superheroe/edit', compact('superheroe'));
     }
 
@@ -68,7 +68,7 @@ class SuperheroeController extends Controller
             $datosSuperheroe['imagen']=$request->file('imagen')->store('uploads','public');
         }
 
-        Empleado::where('id','=',$id)->update($datosSuperheroe);
+        Superheroe::where('id','=',$id)->update($datosSuperheroe);
 
         $empleado=Empleado::findOrFail($id);
         return view('superheroe/edit', compact('superheroe'));
@@ -86,6 +86,7 @@ class SuperheroeController extends Controller
             Superheroe::destroy($id);
         }
      
-        return redirect('superheroe');
+        $datos['superheroes']=Superheroe::paginate(50);
+        return view('superheroe.index',$datos);
     }
 }
