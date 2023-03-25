@@ -34,7 +34,8 @@ class SuperheroeController extends Controller
             $datosSuperheroe['imagen']=$request->file('imagen')->store('uploads','public');
         }
         Superheroe::insert($datosSuperheroe);
-        // return response()->json($datosSuperheroe);
+        $datos['superheroes']=Superheroe::paginate(10);
+        return view('superheroe.index',$datos);
     }
 
     /**
