@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('superheroes', function (Blueprint $table) {
+        Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreSuper');
-            $table->string('nombreReal');
-            $table->string('informacion');
-            $table->string('imagen');
+            $table->unsignedBigInteger('producto_id');
+            $table->integer('cantidad');
+            $table->decimal('precio');
+            $table->decimal('total');
+            $table->string('estatus');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('superheroes');
+        Schema::dropIfExists('productos');
     }
 };
